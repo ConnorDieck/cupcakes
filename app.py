@@ -33,7 +33,7 @@ def get_cupcake(id):
 def add_cupcake():
     """Send post request to add a cupcake, then respond with corresponding JSON"""
 
-    new_cupcake = Cupcake(flavor=request.json["flavor"], size=request.json["size"], rating=request.json["rating"], image=request.json["image"])
+    new_cupcake = Cupcake(flavor=request.json["flavor"], size=request.json["size"], rating=request.json["rating"], image=request.json["image"] or None)
     
     # print(request.form["flavor"])
     # new_cupcake = Cupcake(flavor=request.form["flavor"], size=request.form["size"], rating=request.form["rating"], image=request.form["image"])
