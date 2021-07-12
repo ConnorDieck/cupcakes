@@ -22,9 +22,9 @@ $('cupcake-form').on('submit', async function(evt) {
 	rating = $('#rating').val();
 	image = $('#image').val();
 
-	if (image === None) {
-		image = 'https://tinyurl.com/demo-cupcake';
-	}
+	// if (image === None) {
+	// 	image = 'https://tinyurl.com/demo-cupcake';
+	// }
 
 	const res = await axios.post(`${BASE_URL}/cupcakes`, {
 		flavor,
@@ -34,6 +34,9 @@ $('cupcake-form').on('submit', async function(evt) {
 	});
 
 	console.log(res);
+	let newCupcake = $(generateCupcake(res.data.cupcake));
+	$('#cupcake-list').append(newCupcake);
+	$('#cupcake-form').trigger('reset');
 });
 
 $(showCupcakes);

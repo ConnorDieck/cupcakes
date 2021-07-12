@@ -2,12 +2,13 @@
 
 import requests
 from flask import Flask, request, redirect, render_template, flash, jsonify
+from flask_pretty import Prettify
 from models import db, connect_db, Cupcake
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///cupcakes'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_ECHO'] = False
 
 connect_db(app)
 
@@ -31,7 +32,11 @@ def get_cupcake(id):
 @app.route('/api/cupcakes', methods=["POST"])
 def add_cupcake():
     """Send post request to add a cupcake, then respond with corresponding JSON"""
-    new_cupcake = Cupcake(flavor=request.json["flavor"], size=request.json["size"], rating=request.json["rating"], image=request.json["image"] or None)
+
+    new_cupcake = Cupcake(flavor=request.json["flavor"], size=request.json["size"], rating=request.json["rating"], image=request.json["image"])
+    
+    # print(request.form["flavor"])
+    # new_cupcake = Cupcake(flavor=request.form["flavor"], size=request.form["size"], rating=request.form["rating"], image=request.form["image"])
 
     db.session.add(new_cupcake)
     db.session.commit()
